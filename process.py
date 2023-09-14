@@ -16,6 +16,10 @@ def connect_device(stm32_ip, stm32_port=502):
     finally:
         return isSuccess, client_socket
 
+'''
+    @param client_socket: get from connect_device if isSuccess == True
+    @param hex_message: information which is needed to send
+'''
 def send_data(client_socket, hex_message):
     isSuccess  = True
     try:
@@ -38,7 +42,10 @@ def send_data(client_socket, hex_message):
             return response_hex
         else:
             return error_message
-
+'''
+    @param isCheck: confirm if connecting is successful, is the same as param isSuccess
+    @param client_socket get from connect_device
+'''
 def disconnect_device(isCheck, client_socket):
     if isCheck:
         client_socket.close()
