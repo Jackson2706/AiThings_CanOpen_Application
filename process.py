@@ -1,7 +1,10 @@
 import socket
 import binascii
-
-def connect_device(stm32_ip, stm32_port):
+'''
+    @param stm32_ip: a tring, for example: "192.168.1.1"
+    @param stm32_port: a integer, for example: 502
+'''
+def connect_device(stm32_ip, stm32_port=502):
     isSuccess = True
     try:
         # Khởi tạo kết nối đến STM32 qua TCP/IP
