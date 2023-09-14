@@ -1,7 +1,10 @@
 import socket
 import binascii
-
-def connect_device(stm32_ip, stm32_port):
+'''
+    @param stm32_ip: a tring, for example: "192.168.1.1"
+    @param stm32_port: a integer, for example: 502
+'''
+def connect_device(stm32_ip, stm32_port=502):
     isSuccess = True
     try:
         # Khởi tạo kết nối đến STM32 qua TCP/IP
@@ -13,6 +16,10 @@ def connect_device(stm32_ip, stm32_port):
     finally:
         return isSuccess, client_socket
 
+'''
+    @param client_socket: get from connect_device if isSuccess == True
+    @param hex_message: information which is needed to send
+'''
 def send_data(client_socket, hex_message):
     isSuccess  = True
     try:
@@ -35,20 +42,23 @@ def send_data(client_socket, hex_message):
             return response_hex
         else:
             return error_message
-
+'''
+    @param isCheck: confirm if connecting is successful, is the same as param isSuccess
+    @param client_socket get from connect_device
+'''
 def disconnect_device(isCheck, client_socket):
     if isCheck:
         client_socket.close()
 
-if __name__ == "__main__":
-    # Địa chỉ IP của STM32
-    stm32_ip = "192.168.1.100"
-    # Cổng TCP/IP mà STM32 đang lắng nghe (thường là 502)
-    stm32_port = 502
+# if __name__ == "__main__":
+#     # Địa chỉ IP của STM32
+#     stm32_ip = "192.168.1.100"
+#     # Cổng TCP/IP mà STM32 đang lắng nghe (thường là 502)
+#     stm32_port = 502
 
-    _, client_socket =  connect_device(stm32_ip, stm32_port)
-    print(_)
-    # Chuỗi hex của bản tin Modbus RTU
-    hex_message = "010300000002C40B"
-    print(send_data(client_socket, hex_message=hex_message))
-    disconnect_device(_,client_socket)
+#     _, client_socket =  connect_device(stm32_ip, stm32_port)
+#     print(_)
+#     # Chuỗi hex của bản tin Modbus RTU
+#     hex_message = "010300000002C40B"
+#     print(send_data(client_socket, hex_message=hex_message))
+#     disconnect_device(_,client_socket)
