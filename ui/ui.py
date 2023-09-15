@@ -7,7 +7,7 @@ class Ui_App(object):
         # App.resize(1104, 749)
         App.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 # "border:2px solid;\n"
-"")             
+"")           
         self.centralWidget = QtWidgets.QWidget(App)
         self.centralWidget.setGeometry(0,0,800,800)
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralWidget)

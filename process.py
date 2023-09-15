@@ -50,6 +50,7 @@ def disconnect_device(isCheck, client_socket):
     if isCheck:
         client_socket.close()
 
+
 if __name__ == "__main__":
     # Địa chỉ IP của STM32
     stm32_ip = "192.168.1.100"

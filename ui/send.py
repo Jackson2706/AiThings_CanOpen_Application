@@ -31,6 +31,8 @@ class Ui_Form(QtWidgets.QWidget):
         self.verticalLayout_2.addWidget(self.label_12)
         self.listView = QtWidgets.QListView(self.widget_2)
         self.listView.setObjectName("listView")
+        self.model = QtGui.QStandardItemModel()
+        self.listView.setModel(self.model)
         self.verticalLayout_2.addWidget(self.listView)
         self.widget_5 = QtWidgets.QWidget(self.widget_2)
         self.widget_5.setMinimumSize(QtCore.QSize(200, 120))
