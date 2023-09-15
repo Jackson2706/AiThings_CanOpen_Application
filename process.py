@@ -41,8 +41,6 @@ def send_data(client_socket, hex_message):
 
     except Exception as e:
         return False, str(e)
-    finally:
-        return False, None
     
 '''
     @param isCheck: confirm if connecting is successful, is the same as param isSuccess
