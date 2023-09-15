@@ -1,6 +1,7 @@
 from  socket import socket, AF_INET, SOCK_STREAM
 from  binascii import unhexlify, hexlify
 from ipaddress import IPv4Address, IPv6Address
+
 '''
     @param stm32_ip: a tring, for example: "192.168.1.1"
     @param stm32_port: a integer, for example: 502
