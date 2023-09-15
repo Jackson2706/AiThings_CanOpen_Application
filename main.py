@@ -18,7 +18,7 @@ class MainApplication(QtWidgets.QMainWindow):
     def sendData(self):
         if(self.isSucces):
             if(len(self.ui.send.EditSend.text()) > 0):
-                message = send_data(self.client_socket,self.ui.send.EditSend.text())
+                _, message = send_data(self.client_socket,self.ui.send.EditSend.text())
                 self.addToList("["+timeNow+"]:"+message)
             else:
                 timeNow = datetime.now().strftime('%Y-%m-%d %H-%M-%S')
