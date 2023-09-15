@@ -3,6 +3,7 @@ from PyQt5 import QtWidgets,QtCore,QtGui
 from PyQt5.QtGui import QColor,QPixmap,QImage
 from PyQt5.QtCore import QPoint,QRect,QSize
 import sys,os,cv2
+
 from datetime import datetime
 from process import *
 class MainApplication(QtWidgets.QMainWindow):
