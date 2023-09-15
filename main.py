@@ -16,10 +16,11 @@ class MainApplication(QtWidgets.QMainWindow):
         self.ui.send.SaveAndConnectButton.clicked.connect(self.connectIP)
         self.ui.send.SendButton.clicked.connect(self.sendData)
     def sendData(self):
+        timeNow = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         if(self.isSucces):
             if(len(self.ui.send.EditSend.text()) > 0):
                 _,message = send_data(self.client_socket,self.ui.send.EditSend.text())
-                self.addToList("["+timeNow+"]:"+message)
+                self.addToList("["+timeNow+"]:"+str(message))
             else:
                 timeNow = datetime.now().strftime('%Y-%m-%d %H-%M-%S')
                 self.addToList("["+timeNow+"]:Không có dữ liệu gửi đi !")
