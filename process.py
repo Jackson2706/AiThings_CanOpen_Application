@@ -1,47 +1,47 @@
-import socket
-import binascii
+from  socket import socket, AF_INET, SOCK_STREAM
+from  binascii import unhexlify, hexlify
+from ipaddress import IPv4Address, IPv6Address
 '''
     @param stm32_ip: a tring, for example: "192.168.1.1"
     @param stm32_port: a integer, for example: 502
 '''
 def connect_device(stm32_ip, stm32_port=502):
-    isSuccess = True
+    try:
+        IPv4Address(stm32_ip)
+    except:
+        try:
+            IPv6Address(stm32_ip)
+        except:
+            return False, None
     try:
         # Khởi tạo kết nối đến STM32 qua TCP/IP
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket = socket(AF_INET, SOCK_STREAM)
         client_socket.connect((stm32_ip, stm32_port))
+        return True, client_socket
+
     except Exception as e:
-        isSuccess = False
-        client_socket = None
-    finally:
-        return isSuccess, client_socket
+        return False, None
 
 '''
     @param client_socket: get from connect_device if isSuccess == True
     @param hex_message: information which is needed to send
 '''
 def send_data(client_socket, hex_message):
-    isSuccess  = True
     try:
         # Chuyển đổi chuỗi hex thành dạng bytes
-        message_bytes = binascii.unhexlify(hex_message)
+        message_bytes = unhexlify(hex_message)
 
         # Gửi bản tin đến STM32
         client_socket.send(message_bytes)
 
         # Nhận phản hồi từ STM32
         response = client_socket.recv(1024)
-        response_hex = binascii.hexlify(response).decode('utf-8')
+        response_hex = hexlify(response).decode('utf-8')
+        return True, response_hex
 
     except Exception as e:
-        isSuccess = False
-        error_message = str(e)
-    finally:
-        # Đóng kết nối
-        if isSuccess:
-            return response_hex
-        else:
-            return error_message
+        return False, str(e)
+    
 '''
     @param isCheck: confirm if connecting is successful, is the same as param isSuccess
     @param client_socket get from connect_device

@@ -1,8 +1,6 @@
 from ui.ui import Ui_App
-from PyQt5 import QtWidgets,QtCore,QtGui
-from PyQt5.QtGui import QColor,QPixmap,QImage
-from PyQt5.QtCore import QPoint,QRect,QSize
-import sys,os,cv2
+from PyQt5 import QtWidgets,QtGui
+import sys
 
 from datetime import datetime
 from process import *
@@ -40,16 +38,15 @@ class MainApplication(QtWidgets.QMainWindow):
         self.close()
 
     def connectIP(self):
+        timeNow = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         if(len(self.ui.send.CANgatewayIP.text()) > 0):
             self.isSucces,self.client_socket = connect_device(self.ui.send.CANgatewayIP.text())
             if(self.isSucces):
-                timeNow = datetime.now().strftime('%Y-%m-%d %H-%M-%S')
-                self.ui.send.label_12.setText("["+timeNow+"]:Kết nối thành công !")
+                self.addToList("["+timeNow+"]:Kết nối thành công !")
             else:
-                self.ui.send.label_12.setText("Kết nối thành công !")
+                self.addToList("["+timeNow+"]:Kết nối thất bại !")
         else:
-            timeNow = datetime.now().strftime('%Y-%m-%d %H-%M-%S')
-            self.ui.send.label_12.setText("["+timeNow+"]:CAN getway IP trống. Vui lòng nhập!")
+            self.addToList("["+timeNow+"]:CAN getway IP trống. Vui lòng nhập!")
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     w = MainApplication()

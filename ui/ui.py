@@ -1,4 +1,4 @@
-from PyQt5 import QtCore,QtWidgets,QtGui
+from PyQt5 import QtWidgets
 from ui.send import Ui_Form
 
 class Ui_App(object):
