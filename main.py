@@ -9,12 +9,13 @@ class MainApplication(QtWidgets.QMainWindow):
         QtWidgets.QMainWindow.__init__(self)
         self.isSucces = False
         self.client_socket = None
-        self.setWindowTitle("CANOpem Gateway")  
+        self.setWindowTitle("CANOpen Gateway")  
         self.ui = Ui_App()
         self.ui.setupUi(self)
         self.show()
         self.ui.send.SaveAndConnectButton.clicked.connect(self.connectIP)
         self.ui.send.SendButton.clicked.connect(self.sendData)
+        self.ui.send.DisConnectButton.clicked.connect(self.disconnectIP)
     def sendData(self):
         timeNow = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         if(self.isSucces):
@@ -37,13 +38,18 @@ class MainApplication(QtWidgets.QMainWindow):
     def closeEvent(self,event):
         disconnect_device(self.isSucces,self.client_socket)
         self.close()
-
+    def disconnectIP(self):
+        disconnect_device(self.isSucces,self.client_socket)
+        self.ui.send.DisConnectButton.setStyleSheet("background-color: rgba(241,241,241,1);border:none;")
+        self.ui.send.SaveAndConnectButton.setStyleSheet("")
     def connectIP(self):
         timeNow = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         if(len(self.ui.send.CANgatewayIP.text()) > 0):
             self.isSucces,self.client_socket = connect_device(self.ui.send.CANgatewayIP.text())
             if(self.isSucces):
                 self.addToList("["+timeNow+"]:Kết nối thành công !")
+                self.ui.send.SaveAndConnectButton.setStyleSheet("background-color: rgba(241,241,241,1);border:none;")
+                self.ui.send.DisConnectButton.setStyleSheet("")
             else:
                 self.addToList("["+timeNow+"]:Kết nối thất bại !")
         else:
